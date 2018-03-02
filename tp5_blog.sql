@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-03-01 11:09:28
+-- Generation Time: 2018-03-02 11:21:08
 -- 服务器版本： 5.7.14
 -- PHP Version: 5.6.25
 
@@ -54,12 +54,23 @@ CREATE TABLE `tp_article` (
   `desc` varchar(255) NOT NULL COMMENT '文章简介',
   `keywords` varchar(255) NOT NULL COMMENT '文章关键词',
   `content` text NOT NULL COMMENT '文章内容',
-  `pic` varchar(100) NOT NULL COMMENT '缩略图',
+  `pic` varchar(100) NOT NULL DEFAULT '' COMMENT '缩略图',
   `click` int(10) NOT NULL DEFAULT '0' COMMENT '点击数',
   `state` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0:不推荐 1：推荐',
   `time` int(10) NOT NULL COMMENT '发布时间',
-  `cateid` mediumint(9) DEFAULT NULL COMMENT '所属栏目'
+  `cateid` mediumint(9) NOT NULL COMMENT '所属栏目'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `tp_article`
+--
+
+INSERT INTO `tp_article` (`id`, `title`, `author`, `desc`, `keywords`, `content`, `pic`, `click`, `state`, `time`, `cateid`) VALUES
+(1, '测试', '测试', '测试', '测试', '<p>测试</p>', '', 0, 0, 1519974755, 1),
+(2, 'test', 'test', 'test', 'test', '<p>test</p>', '', 0, 1, 1519975271, 2),
+(3, 'test', '', '', '', '', '', 0, 0, 1519975536, 3),
+(4, 'test', '', '', '', '', '/uploads/20180302\\016a5493cc6afd0cddb2ac79ef4265b9.jpg', 0, 0, 1519977571, 4),
+(5, 'test2', 'test2', 'test2', 'test2', '<p>test2</p>', '/uploads/20180302\\c31b8e2ae71e1f6dafc87230ad60c086.jpg', 0, 1, 1519978462, 1);
 
 -- --------------------------------------------------------
 
@@ -71,6 +82,20 @@ CREATE TABLE `tp_cate` (
   `id` mediumint(9) NOT NULL COMMENT '栏目id',
   `catename` varchar(30) NOT NULL COMMENT '栏目名称'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `tp_cate`
+--
+
+INSERT INTO `tp_cate` (`id`, `catename`) VALUES
+(1, '美食'),
+(2, '健身'),
+(3, '养生'),
+(4, '服装'),
+(6, '美食'),
+(7, '美食'),
+(8, '美食'),
+(9, '美食');
 
 -- --------------------------------------------------------
 
@@ -150,12 +175,12 @@ ALTER TABLE `tp_admin`
 -- 使用表AUTO_INCREMENT `tp_article`
 --
 ALTER TABLE `tp_article`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT COMMENT '文章id';
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT COMMENT '文章id', AUTO_INCREMENT=6;
 --
 -- 使用表AUTO_INCREMENT `tp_cate`
 --
 ALTER TABLE `tp_cate`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT COMMENT '栏目id';
+  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT COMMENT '栏目id', AUTO_INCREMENT=11;
 --
 -- 使用表AUTO_INCREMENT `tp_links`
 --
