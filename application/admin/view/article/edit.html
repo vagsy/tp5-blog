@@ -17,7 +17,9 @@
     <link href="__PUBLIC__/style/demo.css" rel="stylesheet">
     <link href="__PUBLIC__/style/typicons.css" rel="stylesheet">
     <link href="__PUBLIC__/style/animate.css" rel="stylesheet">
-    
+    <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
 </head>
 <body>
 	<!-- 头部 -->
@@ -56,30 +58,73 @@
             </div>
             <div class="widget-body">
                 <div id="horizontal-form">
-                    <form class="form-horizontal" role="form" action="" method="post">
-                        <input type="hidden" name="id" value="{$article.id}">
+                    <form class="form-horizontal" role="form" action="" enctype="multipart/form-data" method="post">
+                        <input type="hidden" name="id" value="{$articles.id}">
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label no-padding-right">文章标题</label>
+                            <label for="username" class="col-sm-2 control-label no-padding-right">文章标题</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="title" placeholder="" name="title" required="" value="{$article.title}"  type="text">
+                                <input class="form-control" id="title" placeholder="" name="title" value="{$articles.title}"  type="text">
                             </div>
                             <p class="help-block col-sm-4 red">* 必填</p>
                         </div>
 
                         <div class="form-group">
-                            <label for="url" class="col-sm-2 control-label no-padding-right">文章地址</label>
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">文章作者</label>
                             <div class="col-sm-6">
-                                <input class="form-control" id="password" placeholder="" name="url" value="{$article.url}"  type="text">
+                                <input class="form-control" id="author" placeholder="" name="author"  value="{$articles.author}" type="text">
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
-                        </div>
-
+                        </div>  
                         <div class="form-group">
-                            <label for="desc" class="col-sm-2 control-label no-padding-right">文章描述</label>
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">关键字</label>
                             <div class="col-sm-6">
-                                <textarea name="desc" class="form-control">{$article.desc}</textarea>
+                                <input class="form-control" id="keywords" placeholder="" name="keywords" value="{$articles.keywords}" type="text">
                             </div>
-                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>  
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">文章描述</label>
+                            <div class="col-sm-6">
+                                <textarea name="desc" class="form-control">{$articles.desc}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">缩略图</label>
+                            <div class="col-sm-6">
+                                <input id="pic" placeholder="" name="pic" style="display:inline;" type="file">
+                                {if condition="$articles['pic'] neq ''"}
+                                    <img src="__IMG__{$articles.pic}" height="50">
+                                {else /}
+                                    <span>暂无缩略图</span>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">所属栏目</label>
+                            <div class="col-sm-6">
+                                <select name="cateid">
+                                    <option value="">请选择栏目</option>
+                                    {volist name="cateres" id="vo"}
+                                    <option {if condition="$vo['id'] eq $articles['cateid']"}selected="selected"{/if} value="{$vo.id}">{$vo.catename}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填<div></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">是否推荐</label>
+                            <div class="col-sm-6">
+                                <label style="margin-top: 6px;">
+                                    <input {if condition="$articles['state'] eq 1"}checked="checked"{/if} class="checkbox-slider colored-darkorange" name="state" type="checkbox">
+                                    <span class="text"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">文章内容</label>
+                            <div class="col-sm-6">
+                                 <label>
+                                    <textarea name="content"  id="content">{$articles.content}</textarea>
+                                 </label>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
@@ -106,7 +151,12 @@
     <script src="__PUBLIC__/style/jquery.js"></script>
     <!--Beyond Scripts-->
     <script src="__PUBLIC__/style/beyond.js"></script>
-    
+    <script type="text/javascript">
 
-
-</body></html>
+        //实例化编辑器
+        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+        UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:400,});
+        
+    </script>
+</body>
+</html>
