@@ -57,7 +57,9 @@ class Admin extends Base
     			die;
     		}
 
-    		if(db('admin')->update($data)){
+            $save=db('admin')->update($data);
+
+    		if($save !== false){
     			$this->success('修改管理员信息成功！', 'lst');
     		}else{
     			$this->error('修改管理员失败！');

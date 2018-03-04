@@ -2,8 +2,8 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Article as ArticleModel;
-
-class Article extends Controller
+use app\admin\controller\Base;
+class Article extends Base
 {
     public function lst()
     {

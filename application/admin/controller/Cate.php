@@ -2,8 +2,8 @@
 namespace app\admin\controller;
 use think\Controller;
 use app\admin\model\Cate as CateModel;
-
-class Cate extends Controller
+use app\admin\controller\Base;
+class Cate extends Base
 {
     public function lst()
     {
