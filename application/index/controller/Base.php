@@ -6,8 +6,12 @@ class Base extends Controller
     public function _initialize()
     {
     	$this->right();
-    	$cateres=db('cate')->order('id asc')->select();
-    	$this->assign('cateres', $cateres);
+        $cateres=db('cate')->order('id asc')->select();
+        $tagres=db('tags')->order('id desc')->select();
+        $this->assign(array(
+            'cateres'=>$cateres,
+            'tagres'=>$tagres
+        ));
     }
 
     public function right(){
