@@ -24,8 +24,4 @@ class Search extends Base
 
         return $this->fetch('search');
     }
-
-
-
-
 }
